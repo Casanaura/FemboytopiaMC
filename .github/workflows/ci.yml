@@ -8,20 +8,26 @@ on:
 jobs:
   create-release:
     runs-on: ubuntu-latest
+    outputs:
+      release_tag: ${{ steps.get_tag.outputs.tag }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Get version
-        run: echo "version=$(jq -r .version package.json)" >> $GITHUB_ENV
+        id: get_tag
+        run: |
+          TAG=$(jq -r .version package.json)
+          echo "tag=$TAG" >> $GITHUB_ENV
+          echo "::set-output name=tag::$TAG"
 
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          tag: ${{ env.version }}
-          name: Release ${{ env.version }}
+          tag: ${{ env.tag }}
+          name: Release ${{ env.tag }}
           draft: false
-          prerelease: ${{ contains(env.version, 'beta') || contains(env.version, 'alpha') }}
+          prerelease: ${{ contains(env.tag, 'beta') || contains(env.tag, 'alpha') }}
           allowUpdates: true
 
   build-launcher:
@@ -64,7 +70,7 @@ jobs:
       - name: Upload binaries to release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ env.version }}
+          tag_name: ${{ needs.create-release.outputs.release_tag }}
           files: dist/**
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
