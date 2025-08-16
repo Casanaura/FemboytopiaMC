@@ -19,7 +19,7 @@ function loadTranslations() {
         translations = JSON.parse(fs.readFileSync(translationPath, 'utf8'));
     } else {
         console.error(`Translation file for language "${systemLanguage}" not found. Falling back to English.`);
-        const fallbackPath = path.join(__dirname, './assets/translations/en.json');
+        const fallbackPath = path.join(__dirname, './assets/translations/es.json');
         if (fs.existsSync(fallbackPath)) {
             translations = JSON.parse(fs.readFileSync(fallbackPath, 'utf8'));
         }
