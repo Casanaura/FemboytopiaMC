@@ -96,7 +96,7 @@ class Settings {
     updateMoney(account) {
         if (this.config.money) {
             const blockMonnaie = document.createElement("div");
-            blockMonnaie.innerHTML = `<div>${account.user_info.monnaie} pts</div>`;
+            blockMonnaie.innerHTML = `<div>${account.user_info.monnaie} créditos</div>`;
             document.querySelector('.player-monnaie').appendChild(blockMonnaie);
         } else {
             document.querySelector(".player-monnaie").style.display = "none";
@@ -279,7 +279,7 @@ initAccount() {
         const modElement = document.createElement('div');
         modElement.innerHTML = `
             <div class="mods-container-empty">
-              <h2>⚠️ Les mods optionnels n'ont pas encore étés téléchargés. Veuillez lancer une première fois le jeu pour pouvoir les configurer, puis redémarrez le launcher. ⚠️<h2>
+              <h2>La lista de mods se cargará automáticamente después de la primera vez que inicies el juego y vuelvas a abrir el launcher.<h2>
             </div>`;
         modsListElement.appendChild(modElement);
     }
@@ -346,7 +346,7 @@ initAccount() {
                   <div class="mods-container-text">
                     <div class="mods-container-name">                    
                         <h2>${modName}</h2>
-                        <div class="mods-recommanded" style="display: none;">Recommandé</div>
+                        <div class="mods-recommanded" style="display: none;">Requerido</div>
                     </div>
                     <div class="mod-description">${modDescription}</div>
                   </div>
