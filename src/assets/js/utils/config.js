@@ -40,10 +40,10 @@ class Config {
 
             if (!items) {
                 return [{
-                    title: "Aucun article disponible",
-                    content: "Aucun article n'a été trouvé.",
-                    author: "",
-                    publish_date: "2024"
+                    title: "Sin novedades",
+                    content: "No hay nuevas noticias para mostrar",
+                    author: "Femboytopia",
+                    publish_date: "2025"
                 }];
             }
 
