@@ -1,7 +1,7 @@
 {
     "name": "femboytopia",
     "preductname": "Femboytopia",
-    "version": "2.1.1",
+    "version": "2.1.2",
     "description": "Launcher oficial de la comunidad de Femboytopia",
     "main": "src/app.js",
     "author": "Riptiaz/Boulldogo/Vexato/Luuxis",

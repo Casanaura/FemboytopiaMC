@@ -186,7 +186,7 @@ class Launcher {
         const uuid = (await this.database.get('1234', 'accounts-selected')).value;
         const account = (await this.database.get(uuid.selected, 'accounts')).value;
 
-        document.querySelector('.player-skin-title').innerHTML = `Skin de ${account.name}`;
+        document.querySelector('.player-skin-title').innerHTML = `Tu atuendo ${account.name}`;
         document.querySelector('.skin-renderer-settings').src = `${azauth}skin3d/3d-api/skin-api/${account.name}`;
     }
 
@@ -203,7 +203,7 @@ class Launcher {
     updateRole(account) {
         if (this.config.role && account.user_info.role) {
             const blockRole = document.createElement("div");
-            blockRole.innerHTML = `<div>${t('grade')}: ${account.user_info.role.name}</div>`;
+            blockRole.innerHTML = `<div>${t('grade')} ${account.user_info.role.name}</div>`;
             document.querySelector('.player-role').appendChild(blockRole);
         } else {
             document.querySelector(".player-role").style.display = "none";

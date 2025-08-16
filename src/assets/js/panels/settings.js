@@ -86,7 +86,7 @@ class Settings {
     updateRole(account) {
         if (this.config.role && account.user_info.role) {
             const blockRole = document.createElement("div");
-            blockRole.innerHTML = `<div>${t('grade')}: ${account.user_info.role.name}</div>`;
+            blockRole.innerHTML = `<div>${t('grade')} ${account.user_info.role.name}</div>`;
             document.querySelector('.player-role').appendChild(blockRole);
         } else {
             document.querySelector(".player-role").style.display = "none";
@@ -191,8 +191,8 @@ initAccount() {
         const totalMem = Math.trunc(os.totalmem() / 1073741824 * 10) / 10;
         const freeMem = Math.trunc(os.freemem() / 1073741824 * 10) / 10;
 
-        document.getElementById("total-ram").textContent = `${totalMem} Go RAM`;
-        document.getElementById("free-ram").textContent = `${freeMem} Go RAM disponible`;
+        document.getElementById("total-ram").textContent = `${totalMem} GB EN TOTAL`;
+        document.getElementById("free-ram").textContent = `${freeMem} GB LIBRE`;
 
         const sliderDiv = document.querySelector(".memory-slider");
         sliderDiv.setAttribute("max", Math.trunc((80 * totalMem) / 100));
@@ -203,12 +203,12 @@ initAccount() {
         const minSpan = document.querySelector(".slider-touch-left span");
         const maxSpan = document.querySelector(".slider-touch-right span");
 
-        minSpan.setAttribute("value", `${ram.ramMin} Go`);
-        maxSpan.setAttribute("value", `${ram.ramMax} Go`);
+        minSpan.setAttribute("value", `${ram.ramMin} GB`);
+        maxSpan.setAttribute("value", `${ram.ramMax} GB`);
 
         slider.on("change", (min, max) => {
-            minSpan.setAttribute("value", `${min} Go`);
-            maxSpan.setAttribute("value", `${max} Go`);
+            minSpan.setAttribute("value", `${min} GB`);
+            maxSpan.setAttribute("value", `${max} GB`);
             this.database.update({ uuid: "1234", ramMin: `${min}`, ramMax: `${max}` }, 'ram');
         });
     }
@@ -395,14 +395,14 @@ initAccount() {
             const file = input.files[0];
             if (!file) return;
             if (file.type !== 'image/png') {
-                alert('Le fichier doit être une image PNG.');
+                alert('La imágen debe ser en formato PNG');
                 return;
             }
             const img = new Image();
             img.src = URL.createObjectURL(file);
             img.onload = async () => {
                 if (img.width !== 64 || img.height !== 64) {
-                    alert('L\'image doit faire 64x64 pixels.');
+                    alert('La imágen debe medir 64x64 píxeles');
                     return;
                 }
 
@@ -452,7 +452,7 @@ initAccount() {
         let account = (await this.database.get(uuid.selected, 'accounts')).value;
 
         let title = document.querySelector('.player-skin-title');
-        title.innerHTML = `Skin de ${account.name}`;
+        title.innerHTML = `Tu atuendo ${account.name}`;
 
         const skin = document.querySelector('.skin-renderer-settings');
         const cacheBuster = new Date().getTime();
