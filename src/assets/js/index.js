@@ -53,14 +53,14 @@ class Splash {
     }
 
         async checkUpdate() {
-            this.setStatus(`Recherche de mise à jour...`);
+            this.setStatus(`Buscando actualizaciones`);
     
             ipcRenderer.invoke('update-app').then().catch(err => {
-                return this.shutdown(`erreur lors de la recherche de mise à jour :<br>${err.message}`);
+                return this.shutdown(`Error al buscar actualizaciones<br>${err.message}`);
             });
     
             ipcRenderer.on('updateAvailable', () => {
-                this.setStatus(`Mise à jour disponible !`);
+                this.setStatus(`Actualización disponible`);
                 if (os.platform() == 'win32') {
                     this.toggleProgress();
                     ipcRenderer.send('start-update');
@@ -78,7 +78,7 @@ class Splash {
             })
     
             ipcRenderer.on('update-not-available', () => {
-                console.error("Mise à jour non disponible");
+                console.error("Actualización no disponible");
                 this.maintenanceCheck();
             })
         }
@@ -107,10 +107,10 @@ class Splash {
             else if (os == 'linux') latest = this.getLatestReleaseForOS('linux', '.appimage', latestRelease);
     
     
-            this.setStatus(`Mise à jour disponible !<br><div class="download-update">Télécharger</div>`);
+            this.setStatus(`Actualización disponible<br><div class="download-update">Descargar</div>`);
             document.querySelector(".download-update").addEventListener("click", () => {
                 shell.openExternal(latest.browser_download_url);
-                return this.shutdown("Téléchargement en cours...");
+                return this.shutdown("Descargando...");
             });
         }
     
@@ -121,22 +121,22 @@ class Splash {
                 this.startLauncher();
             }).catch(e => {
                 console.error(e);
-                return this.shutdown("Aucune connexion internet détectée,<br>veuillez réessayer ultérieurement.");
+                return this.shutdown("Error de conexión<br>Inténtalo de nuevo más tarde");
             })
         }
 
 
     startLauncher() {
-        this.setStatus(`Démarrage du launcher`);
+        this.setStatus(`Inicializando`);
         ipcRenderer.send('main-window-open');
         ipcRenderer.send('update-window-close');
     }
 
     shutdown(text) {
-        this.setStatus(`${text}<br>Arrêt dans 5s`);
+        this.setStatus(`${text}<br>Espera un momento`);
         let i = 4;
         setInterval(() => {
-            this.setStatus(`${text}<br>Arrêt dans ${i--}s`);
+            this.setStatus(`${text}<br>Espera ${i--}s`);
             if (i < 0) ipcRenderer.send('update-window-close');
         }, 1000);
     }
